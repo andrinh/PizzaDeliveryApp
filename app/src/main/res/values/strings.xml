@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">PizzaDeliveryApp</string>
+    <string name="customer_info">Customer Information</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="delivery_address">Delivery Address</string>
+    <string name="street">Street</string>
+    <string name="city">City</string>
+    <string name="province">Province</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="pizza_detail">Pizza Details</string>
+    <string name="pizza_number">Number of Pizzas</string>
+    <string name="one">One</string>
+    <string name="two">Two</string>
+    <string name="three">Three</string>
+    <string name="submit">Submit</string>
+
+
 </resources>
