@@ -9,10 +9,16 @@ import java.util.List;
 public class Pizza {
     private String size;
     private List<Condiment> condiments;
+    private CondimentFactory condimentFactory;
 
     public Pizza(String size, ArrayList<Condiment> condiments) {
         this.size = size;
         this.condiments = condiments;
+        condimentFactory = new CondimentFactory();
+    }
+
+    public void addCondiment(String condimentType){
+        condiments.add(condimentFactory.createCondiment(condimentType));
     }
 
     public String getSize() {
