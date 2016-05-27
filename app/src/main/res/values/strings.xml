@@ -16,5 +16,42 @@
     <string name="three">Three</string>
     <string name="submit">Submit</string>
 
+    <string-array name="province_arrays">
+        <item>-Choose a Province-</item>
+        <item>AB</item>
+        <item>BC</item>
+        <item>MB</item>
+        <item>NB</item>
+        <item>NL</item>
+        <item>NS</item>
+        <item>NT</item>
+        <item>NU</item>
+        <item>ON</item>
+        <item>PE</item>
+        <item>QC</item>
+        <item>SK</item>
+        <item>YT</item>
+    </string-array>
+
+    <string-array name="number_of_pizzas">
+        <item>-Choose Number of Pizzas-</item>
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+    </string-array>
+
+    <string-array name="condiment_arrays">
+        <item>-Choose Condiment-</item>
+        <item>Mushroom</item>
+        <item>Pepperoni</item>
+    </string-array>
+
+    <string-array name="size_arrays">
+        <item>-Choose Pizza Size-</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+
 
 </resources>
