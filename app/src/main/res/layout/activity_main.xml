@@ -134,6 +134,13 @@
                 android:id="@+id/spinnerPizzaNumber"
                 android:entries="@array/number_of_pizzas" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/fragment_pizza_customizer_container">
+            </LinearLayout>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

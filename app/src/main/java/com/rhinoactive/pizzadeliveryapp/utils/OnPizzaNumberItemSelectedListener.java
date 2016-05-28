@@ -1,5 +1,7 @@
 package com.rhinoactive.pizzadeliveryapp.utils;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +19,8 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
     private LinearLayout mainLayout;
     private LinearLayout.LayoutParams params;
     private List<LinearLayout> pizzaContainers;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     public OnPizzaNumberItemSelectedListener(LinearLayout mainLayout) {
         this.mainLayout = mainLayout;
