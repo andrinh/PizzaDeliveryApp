@@ -11,10 +11,12 @@ public class Pizza {
     private List<Condiment> condiments;
     private CondimentFactory condimentFactory;
 
-    public Pizza(String size, ArrayList<Condiment> condiments) {
+    public Pizza(String size, ArrayList<String> condimentTypes) {
         this.size = size;
-        this.condiments = condiments;
         condimentFactory = new CondimentFactory();
+        for (String condimentType: condimentTypes){
+            addCondiment(condimentType);
+        }
     }
 
     public void addCondiment(String condimentType){
