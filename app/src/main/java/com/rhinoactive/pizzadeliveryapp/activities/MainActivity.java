@@ -15,7 +15,6 @@ import com.rhinoactive.pizzadeliveryapp.model.Customer;
 import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity {
-    private LinearLayout mainLayout;
     private Button submitButton;
     private EditText firstName, lastName, email, street, city, postalCode;
     private Spinner province, numberOfPizzas;
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         postalCode = (EditText)findViewById(R.id.editPostalCodeText);
         province = (Spinner)findViewById(R.id.spinnerProvince);
         numberOfPizzas = (Spinner)findViewById(R.id.spinnerPizzaNumber);
-        mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
     }
 
     private void addListenerOnSubmitButton() {
@@ -58,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addListenerOnSpinnerItemSelection() {
-        numberOfPizzas.setOnItemSelectedListener(new OnPizzaNumberItemSelectedListener(mainLayout));
+        numberOfPizzas.setOnItemSelectedListener(new OnPizzaNumberItemSelectedListener(
+                getFragmentManager()));
     }
 }

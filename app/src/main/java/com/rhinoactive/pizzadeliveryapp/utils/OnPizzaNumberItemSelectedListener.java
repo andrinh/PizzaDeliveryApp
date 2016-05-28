@@ -3,11 +3,12 @@ package com.rhinoactive.pizzadeliveryapp.utils;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.rhinoactive.pizzadeliveryapp.R;
+import com.rhinoactive.pizzadeliveryapp.activities.FragmentPizzaCustomizer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,31 +17,27 @@ import java.util.List;
  * Created by Huntur on 27/05/2016.
  */
 public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener {
-    private LinearLayout mainLayout;
-    private LinearLayout.LayoutParams params;
-    private List<LinearLayout> pizzaContainers;
+    private List<FragmentPizzaCustomizer> pizzaContainers;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
-    public OnPizzaNumberItemSelectedListener(LinearLayout mainLayout) {
-        this.mainLayout = mainLayout;
-        params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    public OnPizzaNumberItemSelectedListener(FragmentManager fragmentManager) {
         pizzaContainers = new ArrayList<>();
+        this.fragmentManager = fragmentManager;
 
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+        fragmentTransaction = fragmentManager.beginTransaction();
         removeExistingPizzaContainers();
         int numberOfPizzas = pos;
         for (int pizzaNumber = 1; pizzaNumber <= numberOfPizzas; pizzaNumber++) {
-            LinearLayout pizzaContainer = createPizzaContainerLayout(parent);
-            TextView pizzaHeader = new TextView(parent.getContext());
-            pizzaHeader.setText(Constants.PIZZA + " " + pizzaNumber);
-            pizzaContainer.addView(pizzaHeader);
-            pizzaContainers.add(pizzaContainer);
-            mainLayout.addView(pizzaContainer);
+            FragmentPizzaCustomizer fragmentPizzaCustomizer = new FragmentPizzaCustomizer();
+            fragmentTransaction.add(R.id.fragment_pizza_customizer_container,
+                    fragmentPizzaCustomizer);
+            pizzaContainers.add(fragmentPizzaCustomizer);
         }
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -49,16 +46,9 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
     }
 
     private void removeExistingPizzaContainers(){
-        for (LinearLayout pizzaContainer : pizzaContainers) {
-            pizzaContainer.removeAllViews();
+        for (FragmentPizzaCustomizer pizzaContainer : pizzaContainers) {
+            fragmentTransaction.remove(pizzaContainer);
         }
         pizzaContainers.removeAll(pizzaContainers);
-    }
-
-    private LinearLayout createPizzaContainerLayout(AdapterView<?> parent){
-        LinearLayout pizzaContainer = new LinearLayout(parent.getContext());
-        pizzaContainer.setOrientation(LinearLayout.VERTICAL);
-        pizzaContainer.setLayoutParams(params);
-        return pizzaContainer;
     }
 }
