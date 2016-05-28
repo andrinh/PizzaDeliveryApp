@@ -3,6 +3,7 @@ package com.rhinoactive.pizzadeliveryapp.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.EditText;
 import android.view.View;
@@ -11,9 +12,10 @@ import android.view.View.OnClickListener;
 import com.rhinoactive.pizzadeliveryapp.R;
 import com.rhinoactive.pizzadeliveryapp.model.Address;
 import com.rhinoactive.pizzadeliveryapp.model.Customer;
-import com.rhinoactive.pizzadeliveryapp.utils.CustomOnItemSelectedListener;
+import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity {
+    private LinearLayout mainLayout;
     private Button submitButton;
     private EditText firstName, lastName, email, street, city, postalCode;
     private Spinner province, numberOfPizzas;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         postalCode = (EditText)findViewById(R.id.editPostalCodeText);
         province = (Spinner)findViewById(R.id.spinnerProvince);
         numberOfPizzas = (Spinner)findViewById(R.id.spinnerPizzaNumber);
+        mainLayout = (LinearLayout) findViewById(R.id.mainLayout);
     }
 
     private void addListenerOnSubmitButton() {
@@ -55,6 +58,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addListenerOnSpinnerItemSelection() {
-        numberOfPizzas.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+        numberOfPizzas.setOnItemSelectedListener(new OnPizzaNumberItemSelectedListener(mainLayout));
     }
 }
