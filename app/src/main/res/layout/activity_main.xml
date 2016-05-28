@@ -127,28 +127,11 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/pizza_number" />
 
-            <RadioGroup
+            <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/one"
-                    android:id="@+id/onePizza" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/two"
-                    android:id="@+id/twoPizza" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/three"
-                    android:id="@+id/threePizza" />
-            </RadioGroup>
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerPizzaNumber"
+                android:entries="@array/number_of_pizzas" />
 
             <Button
                 android:layout_width="wrap_content"
