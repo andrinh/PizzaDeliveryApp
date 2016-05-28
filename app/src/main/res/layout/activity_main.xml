@@ -100,7 +100,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/province_spinner"
+                android:id="@+id/spinnerProvince"
                 android:entries="@array/province_arrays" />
 
             <TextView
