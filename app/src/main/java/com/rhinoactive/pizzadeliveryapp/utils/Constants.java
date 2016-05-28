@@ -6,5 +6,4 @@ package com.rhinoactive.pizzadeliveryapp.utils;
 public class Constants {
 
     public static final String SERVER_URL = "http://kardiem.ddmappdesign.com:1234/";
-    public static final String PIZZA = "Pizza";
 }

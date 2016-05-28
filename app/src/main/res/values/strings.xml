@@ -16,6 +16,9 @@
     <string name="condiments">Condiments</string>
     <string name="submit">Submit</string>
 
+    <string name="mushroom">Mushroom</string>
+    <string name="pepperoni">Pepperoni</string>
+
     <string-array name="province_arrays">
         <item>-Choose a Province-</item>
         <item>AB</item>
@@ -38,12 +41,6 @@
         <item>One</item>
         <item>Two</item>
         <item>Three</item>
-    </string-array>
-
-    <string-array name="condiment_arrays">
-        <item>-Choose Condiment-</item>
-        <item>Mushroom</item>
-        <item>Pepperoni</item>
     </string-array>
 
     <string-array name="pizza_size_arrays">

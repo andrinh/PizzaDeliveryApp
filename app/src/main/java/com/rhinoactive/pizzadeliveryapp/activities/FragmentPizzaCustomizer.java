@@ -1,13 +1,12 @@
 package com.rhinoactive.pizzadeliveryapp.activities;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import com.rhinoactive.pizzadeliveryapp.R;
@@ -18,8 +17,7 @@ import com.rhinoactive.pizzadeliveryapp.R;
 public class FragmentPizzaCustomizer extends Fragment {
 
     private Spinner pizzaSize;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
+    private CheckBox checkMushroom, checkPepperoni;
 
     @Nullable
     @Override
@@ -32,15 +30,7 @@ public class FragmentPizzaCustomizer extends Fragment {
 
     private void init(View view){
         pizzaSize = (Spinner) view.findViewById(R.id.spinnerPizzaSize);
-        initFragments(view);
-    }
-
-    private void initFragments(View view) {
-        fragmentManager = getFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        FragmentCondimentSpinner fragmentCondimentSpinner = new FragmentCondimentSpinner();
-        fragmentTransaction.add(R.id.fragment_condiment_spinner_container,
-                fragmentCondimentSpinner);
-        fragmentTransaction.commit();
+        checkMushroom = (CheckBox) view.findViewById(R.id.checkMushroom);
+        checkPepperoni = (CheckBox) view.findViewById(R.id.checkPepperoni);
     }
 }
