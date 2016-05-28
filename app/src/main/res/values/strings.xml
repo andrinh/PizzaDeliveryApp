@@ -11,9 +11,9 @@
     <string name="postal_code">Postal Code</string>
     <string name="pizza_detail">Pizza Details</string>
     <string name="pizza_number">Number of Pizzas</string>
-    <string name="one">One</string>
-    <string name="two">Two</string>
-    <string name="three">Three</string>
+    <string name="pizza">Pizza</string>
+    <string name="size">Size</string>
+    <string name="condiments">Condiments</string>
     <string name="submit">Submit</string>
 
     <string-array name="province_arrays">
@@ -46,7 +46,7 @@
         <item>Pepperoni</item>
     </string-array>
 
-    <string-array name="size_arrays">
+    <string-array name="pizza_size_arrays">
         <item>-Choose Pizza Size-</item>
         <item>Small</item>
         <item>Medium</item>
