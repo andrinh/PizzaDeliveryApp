@@ -23,11 +23,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private Button submitButton;
     private EditText firstName, lastName, email, street, city, postalCode;
-    private Spinner province, numberOfPizzasSpinner;
+    private Spinner provinceSpinner, numberOfPizzasSpinner;
     private Customer customer;
     private Address customerAddress;
     private List<Pizza> pizzas;
     private OnPizzaNumberItemSelectedListener onPizzaNumberItemSelectedListener;
+    private List<EditText> editTextForms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
         street = (EditText)findViewById(R.id.editStreetText);
         city = (EditText)findViewById(R.id.editCityText);
         postalCode = (EditText)findViewById(R.id.editPostalCodeText);
-        province = (Spinner)findViewById(R.id.spinnerProvince);
+        provinceSpinner = (Spinner)findViewById(R.id.spinnerProvince);
         numberOfPizzasSpinner = (Spinner)findViewById(R.id.spinnerPizzaNumber);
+        editTextForms = addAllEditTexts();
     }
 
     private void addListenerOnSubmitButton() {
@@ -61,12 +63,14 @@ public class MainActivity extends AppCompatActivity {
                     customer = new Customer(firstName.getText().toString(),
                             lastName.getText().toString(), email.getText().toString());
                     customerAddress = new Address(street.getText().toString(),
-                            city.getText().toString(), String.valueOf(province.getSelectedItem()),
+                            city.getText().toString(), String.valueOf(provinceSpinner.getSelectedItem()),
                             postalCode.getText().toString());
                     pizzas = onPizzaNumberItemSelectedListener.getPizzas();
                     Order order = new Order(1, customer, customerAddress, pizzas);
                     Toast.makeText(MainActivity.this, Constants.ORDER_PLACED,
                             Toast.LENGTH_LONG).show();
+
+                    clearFormFields();
                 }
             }
         });
@@ -88,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isCustomerInfoValid() {
         boolean customerInfoValid = isProvinceSelected();
         if (customerInfoValid) {
-            List<EditText> editTextForms = addAllEditTexts();
             for (EditText editText : editTextForms) {
                 if (editText.getText().toString().length() == 0) {
                     customerInfoValid = false;
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isProvinceSelected() {
         boolean provinceSelected = false;
-        if (province.getSelectedItemPosition() != 0) {
+        if (provinceSpinner.getSelectedItemPosition() != 0) {
             provinceSelected = true;
         }
         return provinceSelected;
@@ -116,5 +119,13 @@ public class MainActivity extends AppCompatActivity {
         editTextForms.add(city);
         editTextForms.add(postalCode);
         return  editTextForms;
+    }
+
+    private void clearFormFields() {
+        for (EditText editText : editTextForms) {
+            editText.setText("");
+        }
+        provinceSpinner.setSelection(0);
+        numberOfPizzasSpinner.setSelection(0);
     }
 }
