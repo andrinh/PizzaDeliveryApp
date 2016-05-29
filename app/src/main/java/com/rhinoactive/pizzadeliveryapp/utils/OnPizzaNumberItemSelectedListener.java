@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import com.rhinoactive.pizzadeliveryapp.R;
 import com.rhinoactive.pizzadeliveryapp.activities.FragmentPizzaCustomizer;
+import com.rhinoactive.pizzadeliveryapp.model.Pizza;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
     public OnPizzaNumberItemSelectedListener(FragmentManager fragmentManager) {
         pizzaContainers = new ArrayList<>();
         this.fragmentManager = fragmentManager;
-
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
@@ -32,10 +32,7 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
         removeExistingPizzaContainers();
         int numberOfPizzas = pos;
         for (int pizzaNumber = 1; pizzaNumber <= numberOfPizzas; pizzaNumber++) {
-            FragmentPizzaCustomizer fragmentPizzaCustomizer = new FragmentPizzaCustomizer();
-            fragmentTransaction.add(R.id.fragment_pizza_customizer_container,
-                    fragmentPizzaCustomizer);
-            pizzaContainers.add(fragmentPizzaCustomizer);
+            addPizzaCustomizer();
         }
         fragmentTransaction.commit();
     }
@@ -45,10 +42,28 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
         // TODO Auto-generated method stub
     }
 
+    public List<Pizza> getPizzas() {
+        List<Pizza> pizzas = new ArrayList<>();
+        for (FragmentPizzaCustomizer pizzaCustomizer : pizzaContainers) {
+            String pizzaSize = pizzaCustomizer.getPizzaSize();
+            List<String> condiments = pizzaCustomizer.getCondiments();
+            Pizza pizza = new Pizza(pizzaSize, condiments);
+            pizzas.add(pizza);
+        }
+        return pizzas;
+    }
+
     private void removeExistingPizzaContainers(){
         for (FragmentPizzaCustomizer pizzaContainer : pizzaContainers) {
             fragmentTransaction.remove(pizzaContainer);
         }
         pizzaContainers.removeAll(pizzaContainers);
+    }
+
+    private void addPizzaCustomizer(){
+        FragmentPizzaCustomizer fragmentPizzaCustomizer = new FragmentPizzaCustomizer();
+        fragmentTransaction.add(R.id.fragment_pizza_customizer_container,
+                fragmentPizzaCustomizer);
+        pizzaContainers.add(fragmentPizzaCustomizer);
     }
 }

@@ -13,7 +13,7 @@ public class Order {
     private Address customerAddress;
     private List<Pizza> pizzas;
 
-    public Order(int orderId, Customer customer, Address customerAddress, ArrayList<Pizza> pizzas){
+    public Order(int orderId, Customer customer, Address customerAddress, List<Pizza> pizzas){
         this.orderId = orderId;
         this.customer = customer;
         this.customerAddress = customerAddress;

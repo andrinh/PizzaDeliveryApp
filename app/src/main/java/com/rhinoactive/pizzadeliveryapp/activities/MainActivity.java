@@ -3,7 +3,6 @@ package com.rhinoactive.pizzadeliveryapp.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.EditText;
 import android.view.View;
@@ -12,14 +11,20 @@ import android.view.View.OnClickListener;
 import com.rhinoactive.pizzadeliveryapp.R;
 import com.rhinoactive.pizzadeliveryapp.model.Address;
 import com.rhinoactive.pizzadeliveryapp.model.Customer;
+import com.rhinoactive.pizzadeliveryapp.model.Order;
+import com.rhinoactive.pizzadeliveryapp.model.Pizza;
 import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Button submitButton;
     private EditText firstName, lastName, email, street, city, postalCode;
-    private Spinner province, numberOfPizzas;
+    private Spinner province, numberOfPizzasSpinner;
     private Customer customer;
     private Address customerAddress;
+    private List<Pizza> pizzas;
+    private OnPizzaNumberItemSelectedListener onPizzaNumberItemSelectedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         city = (EditText)findViewById(R.id.editCityText);
         postalCode = (EditText)findViewById(R.id.editPostalCodeText);
         province = (Spinner)findViewById(R.id.spinnerProvince);
-        numberOfPizzas = (Spinner)findViewById(R.id.spinnerPizzaNumber);
+        numberOfPizzasSpinner = (Spinner)findViewById(R.id.spinnerPizzaNumber);
     }
 
     private void addListenerOnSubmitButton() {
@@ -50,13 +55,14 @@ public class MainActivity extends AppCompatActivity {
                 customerAddress = new Address(street.getText().toString(),
                         city.getText().toString(), String.valueOf(province.getSelectedItem()),
                         postalCode.getText().toString());
-
+                pizzas = onPizzaNumberItemSelectedListener.getPizzas();
+                Order order = new Order(1, customer, customerAddress, pizzas);
             }
         });
     }
 
     private void addListenerOnSpinnerItemSelection() {
-        numberOfPizzas.setOnItemSelectedListener(new OnPizzaNumberItemSelectedListener(
-                getFragmentManager()));
+        numberOfPizzasSpinner.setOnItemSelectedListener(onPizzaNumberItemSelectedListener
+                = new OnPizzaNumberItemSelectedListener(getFragmentManager()));
     }
 }

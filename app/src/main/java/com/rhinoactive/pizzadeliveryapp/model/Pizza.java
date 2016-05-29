@@ -11,7 +11,7 @@ public class Pizza {
     private List<Condiment> condiments;
     private CondimentFactory condimentFactory;
 
-    public Pizza(String size, ArrayList<String> condimentTypes) {
+    public Pizza(String size, List<String> condimentTypes) {
         this.size = size;
         condimentFactory = new CondimentFactory();
         condiments = new ArrayList<>();
