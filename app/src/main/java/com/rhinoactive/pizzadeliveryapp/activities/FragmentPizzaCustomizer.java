@@ -48,6 +48,14 @@ public class FragmentPizzaCustomizer extends Fragment {
         return condiments;
     }
 
+    public boolean isPizzaSizeSelected(){
+        boolean sizeSelected = false;
+        if (pizzaSize.getSelectedItemPosition() != 0) {
+            sizeSelected = true;
+        }
+        return sizeSelected;
+    }
+
     private void init(View view){
         pizzaSize = (Spinner) view.findViewById(R.id.spinnerPizzaSize);
         checkMushroom = (CheckBox) view.findViewById(R.id.checkMushroom);

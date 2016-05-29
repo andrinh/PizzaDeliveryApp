@@ -53,6 +53,22 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
         return pizzas;
     }
 
+    public boolean isPizzaFormValid() {
+        boolean pizzaFormsValid = true;
+        if (pizzaContainers.size() == 0){
+            pizzaFormsValid = false;
+        }
+        if (pizzaFormsValid) {
+            for (FragmentPizzaCustomizer pizzaCustomizer : pizzaContainers) {
+                if (!pizzaCustomizer.isPizzaSizeSelected()) {
+                    pizzaFormsValid = false;
+                    break;
+                }
+            }
+        }
+        return pizzaFormsValid;
+    }
+
     private void removeExistingPizzaContainers(){
         for (FragmentPizzaCustomizer pizzaContainer : pizzaContainers) {
             fragmentTransaction.remove(pizzaContainer);

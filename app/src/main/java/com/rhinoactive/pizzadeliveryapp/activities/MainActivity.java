@@ -7,12 +7,14 @@ import android.widget.Spinner;
 import android.widget.EditText;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.rhinoactive.pizzadeliveryapp.R;
 import com.rhinoactive.pizzadeliveryapp.model.Address;
 import com.rhinoactive.pizzadeliveryapp.model.Customer;
 import com.rhinoactive.pizzadeliveryapp.model.Order;
 import com.rhinoactive.pizzadeliveryapp.model.Pizza;
+import com.rhinoactive.pizzadeliveryapp.utils.Constants;
 import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
 
 import java.util.List;
@@ -50,13 +52,21 @@ public class MainActivity extends AppCompatActivity {
     private void addListenerOnSubmitButton() {
         submitButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                customer = new Customer(firstName.getText().toString(),
-                        lastName.getText().toString(), email.getText().toString());
-                customerAddress = new Address(street.getText().toString(),
-                        city.getText().toString(), String.valueOf(province.getSelectedItem()),
-                        postalCode.getText().toString());
-                pizzas = onPizzaNumberItemSelectedListener.getPizzas();
-                Order order = new Order(1, customer, customerAddress, pizzas);
+                boolean pizzaFormValid = onPizzaNumberItemSelectedListener.isPizzaFormValid();
+                if (!pizzaFormValid) {
+                    Toast.makeText(MainActivity.this, Constants.FORM_INCOMPLETE,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    customer = new Customer(firstName.getText().toString(),
+                            lastName.getText().toString(), email.getText().toString());
+                    customerAddress = new Address(street.getText().toString(),
+                            city.getText().toString(), String.valueOf(province.getSelectedItem()),
+                            postalCode.getText().toString());
+                    pizzas = onPizzaNumberItemSelectedListener.getPizzas();
+                    Order order = new Order(1, customer, customerAddress, pizzas);
+                    Toast.makeText(MainActivity.this, Constants.ORDER_PLACED,
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
