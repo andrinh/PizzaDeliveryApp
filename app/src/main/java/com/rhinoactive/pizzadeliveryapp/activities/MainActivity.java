@@ -17,6 +17,7 @@ import com.rhinoactive.pizzadeliveryapp.model.Pizza;
 import com.rhinoactive.pizzadeliveryapp.utils.Constants;
 import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private void addListenerOnSubmitButton() {
         submitButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                boolean pizzaFormValid = onPizzaNumberItemSelectedListener.isPizzaFormValid();
-                if (!pizzaFormValid) {
+                boolean formValid = isFormValid();
+                if (!formValid) {
                     Toast.makeText(MainActivity.this, Constants.FORM_INCOMPLETE,
                             Toast.LENGTH_LONG).show();
                 } else {
@@ -74,5 +75,46 @@ public class MainActivity extends AppCompatActivity {
     private void addListenerOnSpinnerItemSelection() {
         numberOfPizzasSpinner.setOnItemSelectedListener(onPizzaNumberItemSelectedListener
                 = new OnPizzaNumberItemSelectedListener(getFragmentManager()));
+    }
+
+    private boolean isFormValid() {
+        boolean formValid = onPizzaNumberItemSelectedListener.isPizzaFormValid();
+        if (formValid) {
+            formValid = isCustomerInfoValid();
+        }
+        return formValid;
+    }
+
+    private boolean isCustomerInfoValid() {
+        boolean customerInfoValid = isProvinceSelected();
+        if (customerInfoValid) {
+            List<EditText> editTextForms = addAllEditTexts();
+            for (EditText editText : editTextForms) {
+                if (editText.getText().toString().length() == 0) {
+                    customerInfoValid = false;
+                    break;
+                }
+            }
+        }
+        return customerInfoValid;
+    }
+
+    private boolean isProvinceSelected() {
+        boolean provinceSelected = false;
+        if (province.getSelectedItemPosition() != 0) {
+            provinceSelected = true;
+        }
+        return provinceSelected;
+    }
+
+    private List<EditText> addAllEditTexts() {
+        List<EditText> editTextForms = new ArrayList<>();
+        editTextForms.add(firstName);
+        editTextForms.add(lastName);
+        editTextForms.add(email);
+        editTextForms.add(street);
+        editTextForms.add(city);
+        editTextForms.add(postalCode);
+        return  editTextForms;
     }
 }
