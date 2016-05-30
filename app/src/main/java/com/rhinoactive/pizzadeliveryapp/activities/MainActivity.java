@@ -14,11 +14,14 @@ import com.rhinoactive.pizzadeliveryapp.model.Address;
 import com.rhinoactive.pizzadeliveryapp.model.Customer;
 import com.rhinoactive.pizzadeliveryapp.model.Order;
 import com.rhinoactive.pizzadeliveryapp.model.Pizza;
+import com.rhinoactive.pizzadeliveryapp.networking.PizzaHTTPClient;
 import com.rhinoactive.pizzadeliveryapp.utils.Constants;
 import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
 
 public class MainActivity extends AppCompatActivity {
     private Button submitButton;
@@ -67,10 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             postalCode.getText().toString());
                     pizzas = onPizzaNumberItemSelectedListener.getPizzas();
                     Order order = new Order(1, customer, customerAddress, pizzas);
-                    Toast.makeText(MainActivity.this, Constants.ORDER_PLACED,
-                            Toast.LENGTH_LONG).show();
-
-                    clearFormFields();
+                    sendOrder(order);
                 }
             }
         });
@@ -127,5 +127,28 @@ public class MainActivity extends AppCompatActivity {
         }
         provinceSpinner.setSelection(0);
         numberOfPizzasSpinner.setSelection(0);
+    }
+
+    private void sendOrder(Order order) {
+        boolean orderSent = sendOrderOverNetwork(order);
+        if (orderSent) {
+            Toast.makeText(MainActivity.this, Constants.ORDER_PLACED,
+                    Toast.LENGTH_LONG).show();
+            clearFormFields();
+        } else {
+            Toast.makeText(MainActivity.this, Constants.ORDER_ERROR,
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private boolean sendOrderOverNetwork(Order order) {
+        boolean orderSent = true;
+        try {
+            Call orderRequest = PizzaHTTPClient.orderPizza(order);
+            orderRequest.execute();
+        }catch (Exception pizzaOrderException) {
+            orderSent = false;
+        }
+        return orderSent;
     }
 }
