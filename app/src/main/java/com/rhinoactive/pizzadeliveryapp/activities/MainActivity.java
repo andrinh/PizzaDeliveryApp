@@ -19,7 +19,10 @@ import com.rhinoactive.pizzadeliveryapp.utils.Constants;
 import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
 import com.rhinoactive.pizzadeliveryapp.utils.PizzaOrderSendTask;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
@@ -67,10 +70,12 @@ public class MainActivity extends AppCompatActivity {
                     customer = new Customer(firstName.getText().toString(),
                             lastName.getText().toString(), email.getText().toString());
                     customerAddress = new Address(street.getText().toString(),
-                            city.getText().toString(), String.valueOf(provinceSpinner.getSelectedItem()),
+                            city.getText().toString(),
+                            String.valueOf(provinceSpinner.getSelectedItem()),
                             postalCode.getText().toString());
                     pizzas = onPizzaNumberItemSelectedListener.getPizzas();
-                    Order order = new Order(1, customer, customerAddress, pizzas);
+                    int orderID = calculateOrderId(customer.getFirstName(), customer.getLastName());
+                    Order order = new Order(orderID, customer, customerAddress, pizzas);
                     sendOrder(order);
                 }
             }
@@ -80,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
     private void addListenerOnSpinnerItemSelection() {
         numberOfPizzasSpinner.setOnItemSelectedListener(onPizzaNumberItemSelectedListener
                 = new OnPizzaNumberItemSelectedListener(getFragmentManager()));
+    }
+
+    private int calculateOrderId(String customerFirstName, String customerLastName) {
+        int orderId;
+        DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        String dateTime = dateTimeFormat.format(new Date());
+        String customerDateTime = customerFirstName + customerLastName + dateTime;
+        orderId = customerDateTime.hashCode();
+        return orderId;
     }
 
     private boolean isFormValid() {
