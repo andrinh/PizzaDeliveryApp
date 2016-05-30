@@ -2,10 +2,10 @@ package com.rhinoactive.pizzadeliveryapp.utils;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.LinearLayout;
 
 import com.rhinoactive.pizzadeliveryapp.R;
 import com.rhinoactive.pizzadeliveryapp.activities.FragmentPizzaCustomizer;
@@ -30,11 +30,11 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
     public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
         fragmentTransaction = fragmentManager.beginTransaction();
         removeExistingPizzaContainers();
+        fragmentTransaction.commit();
         int numberOfPizzas = pos;
         for (int pizzaNumber = 1; pizzaNumber <= numberOfPizzas; pizzaNumber++) {
-            addPizzaCustomizer();
+            addPizzaCustomizer(pizzaNumber);
         }
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -73,13 +73,19 @@ public class OnPizzaNumberItemSelectedListener implements OnItemSelectedListener
         for (FragmentPizzaCustomizer pizzaContainer : pizzaContainers) {
             fragmentTransaction.remove(pizzaContainer);
         }
-        pizzaContainers.removeAll(pizzaContainers);
+        List<FragmentPizzaCustomizer> allPizzaContainers = pizzaContainers;
+        pizzaContainers.removeAll(allPizzaContainers);
     }
 
-    private void addPizzaCustomizer(){
+    private void addPizzaCustomizer(int pizzaNumber){
+        fragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.FRAGEMENT_PIZZA_NUMBER_CUSTOMIZER_KEY, pizzaNumber);
         FragmentPizzaCustomizer fragmentPizzaCustomizer = new FragmentPizzaCustomizer();
+        fragmentPizzaCustomizer.setArguments(bundle);
         fragmentTransaction.add(R.id.fragment_pizza_customizer_container,
                 fragmentPizzaCustomizer);
         pizzaContainers.add(fragmentPizzaCustomizer);
+        fragmentTransaction.commit();
     }
 }

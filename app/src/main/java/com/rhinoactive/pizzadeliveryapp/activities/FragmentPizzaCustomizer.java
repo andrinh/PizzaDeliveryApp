@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.rhinoactive.pizzadeliveryapp.R;
+import com.rhinoactive.pizzadeliveryapp.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 public class FragmentPizzaCustomizer extends Fragment {
 
+    private TextView pizzaHeader;
     private Spinner pizzaSize;
     private CheckBox checkMushroom, checkPepperoni;
     private List<CheckBox> condimentCheckBoxes;
@@ -57,6 +60,10 @@ public class FragmentPizzaCustomizer extends Fragment {
     }
 
     private void init(View view){
+        Bundle bundle = getArguments();
+        int pizzaNumber = bundle.getInt(Constants.FRAGEMENT_PIZZA_NUMBER_CUSTOMIZER_KEY);
+        pizzaHeader = (TextView) view.findViewById(R.id.pizzaHeader);
+        pizzaHeader.append("" + pizzaNumber);
         pizzaSize = (Spinner) view.findViewById(R.id.spinnerPizzaSize);
         checkMushroom = (CheckBox) view.findViewById(R.id.checkMushroom);
         checkPepperoni = (CheckBox) view.findViewById(R.id.checkPepperoni);
