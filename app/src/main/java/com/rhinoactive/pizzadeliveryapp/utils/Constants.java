@@ -9,5 +9,6 @@ public class Constants {
     public static final String ORDER_ERROR = "An error occurred placing the order.";
     public static final String FORM_INCOMPLETE = "Form is incomplete!";
     public static final String ORDER_PLACED = "Order has been placed!";
+    public static final String PLACING_ORDER = "Placing order...";
     public static final String SERVER_URL = "http://kardiem.ddmappdesign.com:1234/";
 }

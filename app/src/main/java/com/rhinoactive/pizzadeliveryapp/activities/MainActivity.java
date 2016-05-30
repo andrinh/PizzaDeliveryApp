@@ -17,6 +17,7 @@ import com.rhinoactive.pizzadeliveryapp.model.Pizza;
 import com.rhinoactive.pizzadeliveryapp.networking.PizzaHTTPClient;
 import com.rhinoactive.pizzadeliveryapp.utils.Constants;
 import com.rhinoactive.pizzadeliveryapp.utils.OnPizzaNumberItemSelectedListener;
+import com.rhinoactive.pizzadeliveryapp.utils.PizzaOrderSendTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,25 +131,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendOrder(Order order) {
-        boolean orderSent = sendOrderOverNetwork(order);
-        if (orderSent) {
-            Toast.makeText(MainActivity.this, Constants.ORDER_PLACED,
-                    Toast.LENGTH_LONG).show();
-            clearFormFields();
-        } else {
-            Toast.makeText(MainActivity.this, Constants.ORDER_ERROR,
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private boolean sendOrderOverNetwork(Order order) {
-        boolean orderSent = true;
-        try {
-            Call orderRequest = PizzaHTTPClient.orderPizza(order);
-            orderRequest.execute();
-        }catch (Exception pizzaOrderException) {
-            orderSent = false;
-        }
-        return orderSent;
+        PizzaOrderSendTask pizzaOrderSendTask = new PizzaOrderSendTask(MainActivity.this, order);
+        pizzaOrderSendTask.execute();
+        Toast.makeText(MainActivity.this, Constants.PLACING_ORDER,
+                Toast.LENGTH_LONG).show();
     }
 }
